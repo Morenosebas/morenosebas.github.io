@@ -1,0 +1,57 @@
+---
+import Lateral from "./lateral.astro";
+---
+
+<nav class={`w-full bg-darkGray text-white font-bold `}>
+  <ul
+    class="w-full md:grid grid-flow-col min-h-[100px] place-content-center grid-cols-8 hidden"
+  >
+    <li
+      class={`hover:bg-dark min-h-[100px] text-start place-content-center col-span-5 pl-10`}
+    >
+      <a href="/">@CODEJ31M</a>
+    </li>
+    <li class={`hover:bg-dark min-h-[100px] text-center place-content-center`}>
+      <a href="About">About</a>
+    </li>
+    <li class={`hover:bg-dark min-h-[100px] text-center place-content-center`}>
+      <a href="Blog">Blog</a>
+    </li>
+    <li class={`hover:bg-dark min-h-[100px] text-center place-content-center`}>
+      <a href="Contact">Contact</a>
+    </li>
+  </ul>
+  <ul
+    class="w-full grid grid-flow-col min-h-[100px] place-content-center grid-cols-2 md:hidden"
+  >
+    <li class={`min-h-[100px] w-full text-start place-content-center pl-10`}>
+      <a href="/">Home</a>
+    </li>
+    <li class="h-full grid place-content-center justify-end pr-10 z-10">
+      <div class="tham tham-e-squeeze tham-w-6 h-full">
+        <div class="tham-box">
+          <div class="tham-inner bg-white"></div>
+        </div>
+      </div>
+
+      <script>
+        const burgerBtn = () => {
+          const tham = document.querySelector(".tham");
+          if (!tham) return;
+          tham.addEventListener("click", () => {
+            tham.classList.toggle("tham-active");
+            tham.classList.toggle("rounded");
+            const LateralId = document.querySelector("#LateralId");
+            if (!LateralId) return;
+            // LateralId.classList.toggle("hidden")
+            LateralId.classList.toggle("w-72");
+            LateralId.classList.toggle("w-0");
+
+          });
+        };
+        burgerBtn();
+      </script>
+    </li>
+  </ul>
+  <Lateral />
+</nav>
