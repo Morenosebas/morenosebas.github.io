@@ -27,10 +27,10 @@ const { class: classNames } = Astro.props;
   <img
     src="/imagen_service.png"
     alt="Image four"
-    class="object-cover w-[100%]"
+    class="object-cover h-full"
   />
   <Carrusel
-    class="grid place-content-center min-w-[99%] min-h-[100%] p-5"
+    class="grid place-content-center md:w-[50%] w-full h-full md:min-h-[100%] text-[0.5rem] md:text-[1rem] md:p-5"
     slides={slides}
     id="services"
     delay={5000}
