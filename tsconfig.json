@@ -8,5 +8,6 @@
       "@constants/*": ["./src/constants/*"],
       "@layouts/*": ["./src/layouts/*"]
     }
+    ,"outDir": "./dist"
   }
 }
