@@ -150,6 +150,7 @@ const classCards =
         });
 
         this.carruselInterval = () => {
+          changeSlide(this.currentSlide);
           this.currentInterval = setInterval(() => {
             this.currentSlide = (this.currentSlide + 1) % slides.length;
             changeSlide(this.currentSlide);
