@@ -1,0 +1,65 @@
+---
+const { class: classNames } = Astro.props;
+---
+
+<footer class:list={classNames}>
+  <div class="text-white">
+    <div class="grid place-items-center gap-5">
+      <div>
+        <h2>Contáctanos</h2>
+        <p>Si tienes alguna duda o sugerencia, no dudes en contactarnos.</p>
+      </div>
+      <div
+        id="socialNetworksContainer"
+        class="grid grid-flow-col w-[50%] place-items-center gap-2"
+      >
+        <a target="_blank" class="bg-white contrast-200 hover:bg-dark brightness-150 transition-colors ease-out duration-300 p-2 rounded" href="https://www.facebook.com/">
+          <img class="w-[60px]" src="/icon-facebook.svg" alt="Facebook" />
+        </a>
+        <a target="_blank" class="bg-white contrast-200 hover:bg-dark brightness-150 transition-colors ease-out duration-300 p-2 rounded" href="https://www.x.com/">
+          <img class="w-[60px]" src="/icon-x.svg" alt="X" />
+        </a>
+        <a target="_blank" class="bg-white contrast-200 hover:bg-dark brightness-150 transition-colors ease-out duration-300 p-2 rounded" href="https://www.linkedin.com/">
+          <img class="w-[60px]" src="/icon-linkedin.svg" alt="Linkedin" />
+        </a>
+        <a target="_blank" class="bg-white contrast-200 hover:bg-dark brightness-150 transition-colors ease-out duration-300 p-2 rounded" href="https://www.telegram.com/">
+          <img class="w-[60px]" src="/icon-telegram.svg" alt="Telegram" />
+        </a>
+        <a target="_blank" class="bg-white contrast-200 hover:bg-dark brightness-150 transition-colors ease-out duration-300 p-2 rounded" href="https://www.whatsapp.com/">
+          <img class="w-[60px]" src="/icon-wpp.svg" alt="Whatsapp" />
+        </a>
+      </div>
+    </div>
+    <p>© 2022 - 2024</p>
+    <p>Desarrollado por @CODEJ31M</p>
+  </div>
+  <div id="contactContainer">
+    <form
+      action="/contact_form"
+      class="grid grid-flow-col grid-cols-2 gap-5 mb-5 h-[50%]"
+      method="post"
+    >
+      <div class="grid grid-flow-row h-[80%] w-[100%]">
+        <label class="text-white" for="email">Correo electrónico:</label>
+        <input class="rounded" type="email" name="email" id="email" />
+        <label class="text-white" for="name">Nombre:</label>
+        <input class="rounded" type="text" name="name" id="name" />
+        <label class="text-white" for="subject">Asunto:</label>
+        <input class="rounded" type="text" name="subject" id="subject" />
+      </div>
+      <div class="grid grid-flow-row gap-4 w-full h-[80%]">
+        <label class="text-white" for="message">Mensaje:</label>
+        <textarea
+          name="message"
+          id="message"
+          cols="30"
+          rows="10"
+          class="rounded w-full h-full"></textarea>
+        <button
+          class="bg-blue hover:bg-white hover:text-black text-white transition-colors ease-linear duration-300 p-2 rounded"
+          type="submit">Enviar</button
+        >
+      </div>
+    </form>
+  </div>
+</footer>

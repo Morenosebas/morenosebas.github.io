@@ -2,23 +2,38 @@
 import Carrusel from "./carrusel/carrusel.astro";
 const slides = [
   {
-    title: "Slide 1",
-    description: "Description 1",
-    image: "/public/image_one.jpg",
+    title: "Software a la medida",
+    description:
+      "@CODEJ31M es un experto en desarrollo de software a la medida, destacándose en la creación de soluciones personalizadas utilizando MongoDB, Next.js, Node.js y Express.js. Su notable capacidad de adaptación a nuevas tecnologías asegura que cada proyecto esté optimizado y alineado con los objetivos del cliente, garantizando alta calidad y rendimiento.",
+    image: "/software_medida_service.avif",
   },
   {
-    title: "Slide 2",
-    description: "Description 2",
-    image: "/public/image_two.jpg",
+    title: "Configuración de servidores",
+    description:
+      "@CODEJ31M es un experto en configuración de servidores, destacándose en el manejo de Apache y Nginx. Su habilidad abarca la instalación, configuración y mantenimiento de estos servidores, optimizando su rendimiento y garantizando la disponibilidad y seguridad de los servicios web.",
+    image: "/servidores_servoce.jpeg",
   },
   {
-    title: "Slide 3",
-    description: "Description 3",
-    image: "/public/image_three.jpeg",
+    title: "Diseño y administración de bases de datos",
+    description:
+      "@CODEJ31M es un especialista en diseño de bases de datos, con experiencia en la creación de estructuras eficientes y escalables para almacenar y gestionar datos. Su experiencia incluye la planificación de esquemas, la normalización y la optimización de consultas, garantizando integridad y rendimiento en sistemas como MongoDB y SQL.",
+    image: "/image_three.jpeg",
   },
 ];
+const { class: classNames } = Astro.props;
 ---
 
-<div>
-  <Carrusel class="grid place-content-center border" slides={slides} />
+<div class:list={classNames}>
+  <img
+    src="/imagen_service.png"
+    alt="Image four"
+    class="object-cover w-[100%]"
+  />
+  <Carrusel
+    class="grid place-content-center min-w-[99%] min-h-[100%] p-5"
+    slides={slides}
+    id="services"
+    delay={5000}
+    subclass="md:w-[570px] text-start relative"
+  />
 </div>

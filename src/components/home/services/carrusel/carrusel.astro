@@ -4,29 +4,50 @@ const slides = Astro.props.slides as {
   description: string;
   image: string;
 }[];
-const { class: classNames } = Astro.props;
-console.log(classNames)
+const {
+  class: classNames,
+  id = "service",
+  delay = 500,
+  subclass = "md:max-w-[600px] max-h-[800px] relative",
+} = Astro.props;
+const classCards =
+  "slider-button-" +
+  id +
+  " w-[10px] h-[10px] border border-black bg-dark rounded-full ";
 ---
 
-<section class:list={[classNames]}>
-  <div class="md:max-w-[600px] max-h-[700px] relative">
+<section-service
+  class:list={[classNames]}
+  id={"sectionServiceMain" + id}
+  data-idParam={id}
+  data-delay={delay}
+>
+  <div class:list={subclass}>
     <div
-      class="slider aspect-video flex overflow-hidden snap-mandatory snap-x scroll-smooth w-full h-full border-2"
+      class={"slider-" +
+        id +
+        " rounded-xl bg-white aspect-video flex box-border overflow-x-hidden snap-mandatory snap-x scroll-smooth w-full h-full border-2"}
     >
       {
         slides.map((slide, index) => {
           return (
             <div
-              class="slide flex-grow-[1] flex-shrink-[0] basis-[100%] w-full h-full grid grid-flow-col p-5 gap-3 "
-              id={"slider-" + index}
+              class={
+                "slide-" +
+                id +
+                " flex-grow-[1]  w-full h-full overflow-hidden transition-opacity flex-shrink-[0] basis-[100%]  grid grid-flow-col p-5 gap-3 place-items-center align-top box-border"
+              }
+              id={"slider-" + index + id}
             >
-              <img
-                src={slide.image}
-                alt={slide.title}
-                class="object-contain w-full h-full"
-              />
-              <div class="slide-content">
-                <h2>{slide.title}</h2>
+              <div class=" box-border max-w-[70%] ">
+                <img
+                  src={slide.image}
+                  alt={slide.title}
+                  class="object-contain  w-full h-full rounded-xl"
+                />
+              </div>
+              <div class="slide-content place-items-start w-full align-top box-border">
+                <h2 class="font-bold text-blue">{slide.title}</h2>
                 <p>{slide.description}</p>
               </div>
             </div>
@@ -35,17 +56,17 @@ console.log(classNames)
       }
     </div>
     <div
-      class="slider-nav flex absolute bottom-[20px] left-[50%] translate-x-[-50%] z-20 gap-2"
+      class="flex absolute bottom-[20px] left-[50%] translate-x-[-50%] z-20 gap-2"
     >
       {
         slides.map((slide, index) => {
           return (
             <a
-              class="slider-button w-[10px] h-[10px] bg-dark rounded-full "
-              aria-label={`Go to slide ${index + 1}`}
+              class:list={classCards}
+              aria-label={`Go to slide ${index + 1 + " " + id}`}
               aria-current={index === 0 ? "true" : "false"}
-              href={"#slider-" + index}
-              id={"btnSlider-" + index}
+              href={"#slider-" + index + id}
+              id={"btnSlider-" + index + id}
             />
           );
         })
@@ -53,23 +74,104 @@ console.log(classNames)
     </div>
   </div>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const buttons = document.querySelectorAll(".slider-button");
+    class SectionService extends HTMLElement {
+      private currentSlide: number;
+      private currentInterval: NodeJS.Timeout | null;
+      private carruselInterval: (
+        changeSlide: (index: number) => void,
+        slides: NodeListOf<Element>,
+        delay: number
+      ) => void;
+      constructor() {
+        super();
+        this.currentSlide = 0;
+        this.currentInterval = null;
+        this.carruselInterval = (
+          changeSlide: (index: number) => void,
+          slides: NodeListOf<Element>,
+          delay: number
+        ) => {
+          this.currentInterval = setInterval(() => {
+            this.currentSlide = (this.currentSlide + 1) % slides.length;
+            changeSlide(this.currentSlide);
+          }, delay);
+        };
+      }
 
-      buttons.forEach((button) => {
-        button.addEventListener("click", (event) => {
-          buttons.forEach((btn) => {
+      connectedCallback() {
+        const id = this.getAttribute("data-idParam") ?? this.dataset.idParam;
+        const delay = Number(this.getAttribute("data-delay")) ?? 5000;
+        const queryButtons = ".slider-button-" + id;
+        const buttons: NodeListOf<Element> =
+          this.querySelectorAll(queryButtons);
+        const slides: NodeListOf<Element> = this.querySelectorAll(
+          ".slide-" + id
+        );
+
+        const changeSlide = (index: number) => {
+          buttons.forEach((btn, idx) => {
             btn.classList.remove("bg-white");
             btn.classList.add("bg-dark");
-          });
-          if (event.currentTarget) {
-            const currentButton = event.currentTarget as HTMLAnchorElement;
-            if (currentButton) {
-              currentButton.classList.add("bg-white");
+            if (idx === index) {
+              btn.classList.add("bg-white");
+              // (slides[index] as HTMLElement).scrollIntoView({
+              //   behavior: "smooth",
+              // });
+              // slides.forEach((slide, idx) => {
+              //   (slide as HTMLElement).style.display = "none";
+              //   if (idx === index) {
+              //     (slide as HTMLElement).style.display = "grid";
+              //   }
+              // });
+              slides.forEach((slide, slideIdx) => {
+                const slideElement = slide as HTMLElement;
+                if (slideIdx === index) {
+                  slideElement.style.display = "grid"; // Asegúrate de mostrar el slide antes de cambiar la opacidad
+                  requestAnimationFrame(() => {
+                    slideElement.classList.add("opacity-visible");
+                  });
+                } else {
+                  slideElement.classList.remove("opacity-visible");
+                  slideElement.style.display = "none";
+                }
+              });
             }
-          }
+          });
+        };
+
+        buttons.forEach((button, index) => {
+          button.addEventListener("click", (event) => {
+            if (this.currentInterval) clearInterval(this.currentInterval);
+            event.preventDefault();
+            this.currentSlide = index;
+            changeSlide(index);
+            this.carruselInterval(changeSlide, slides, delay);
+          });
         });
-      });
-    });
+
+        this.carruselInterval = () => {
+          this.currentInterval = setInterval(() => {
+            this.currentSlide = (this.currentSlide + 1) % slides.length;
+            changeSlide(this.currentSlide);
+          }, delay);
+        };
+
+        this.carruselInterval(changeSlide, slides, delay);
+      }
+    }
+
+    customElements.define("section-service", SectionService);
   </script>
-</section>
+  <style>
+    .transition-opacity {
+      transition: opacity 0.5s ease-out;
+      opacity: 0;
+      display: none;
+    }
+
+    .opacity-visible {
+      opacity: 1;
+      display: grid;
+    }
+  </style>
+</section-service>

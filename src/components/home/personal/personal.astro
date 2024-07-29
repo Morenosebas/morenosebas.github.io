@@ -1,4 +1,30 @@
 ---
+import Carrusel from "../services/carrusel/carrusel.astro";
 
+const { class: classNames } = Astro.props;
+const slides = [
+  {
+    title: "Conteo2",
+    description:
+      "En Conteo2, he trabajado en el desarrollo y administración del backend de la aplicación productiva. Esto incluye el manejo de bases de datos en MongoDB y la implementación de funcionalidades contables. En menor medida, también he realizado ciertos módulos y funciones en el frontend de la misma.",
+    image: "/Logo-conteo.webp",
+  },
+  {
+    title: "JGSTORE",
+    description:
+      "En jgstore, @CODEJ31M se ha encargado exclusivamente del backend, utilizando el API de Next.js. Implementa soluciones eficientes y robustas con MongoDB para la administración de datos. Garantiza la seguridad y la escalabilidad del sistema, proporcionando una experiencia de usuario confiable y de alta calidad.",
+    image: "/jg_store.png",
+  },
+];
 ---
 
+<section class:list={classNames}>
+  <h2 class="font-bold text-blue text-2xl">TRABAJOS</h2>
+  <Carrusel
+    class="grid place-content-center md:w-[900px] p-5"
+    slides={slides}
+    id="trabajo"
+    delay={5000}
+    subclass="md:w-[900px] max-h-[300px] text-start relative"
+  />
+</section>

@@ -3,7 +3,11 @@ import Personal from "./personal/personal.astro";
 import Services from "./services/services.astro";
 ---
 
-<div >
-  <Services />
-  <Personal />
+<div class="grid place-items-center mb-10 mt-10 gap-2">
+  <Services
+    class="w-[92%] grid grid-flow-col align-middle justify-center grid-cols-2 bg-lightGray rounded-xl mt-5 border-white border-2"
+  />
+  <Personal
+    class="w-[92%] text-center grid grid-flow-row align-middle justify-center bg-lightGray rounded-xl mt-5 border-white border-2 p-5"
+  />
 </div>

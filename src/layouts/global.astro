@@ -1,4 +1,5 @@
 ---
+import Footer from "@components/footer/footer.astro";
 import NavHeader from "@components/header/header.astro";
 ---
 
@@ -9,11 +10,20 @@ import NavHeader from "@components/header/header.astro";
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>Astro</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Roboto+Slab:wght@100..900&display=swap");
+      * {
+        font-family: "Roboto Slab", sans-serif;
+      }
+    </style>
   </head>
   <body class="bg-dark">
     <header>
       <NavHeader />
     </header>
     <slot />
+    <Footer
+      class="w-full grid bg-darkGray mt-5 grid-flow-col place-items-center   p-3 text-start"
+    />
   </body>
 </html>
