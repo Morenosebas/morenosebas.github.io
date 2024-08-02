@@ -62,17 +62,23 @@ const { class: classNames } = Astro.props;
     class="grid place-content-center place-items-center w-full"
   >
     <form
-      action="/contact_form"
+      id="contactForm"
       class="grid md:grid-flow-col md:grid-cols-2 md:gap-2 md:mb-5 md:h-[50%] w-[90%] text-center"
       method="post"
     >
       <div class="grid md:grid-flow-row md:h-[80%] md:w-[100%]">
         <label class="text-white" for="email">Correo electrónico</label>
-        <input class="rounded" type="email" name="email" id="email" />
+        <input class="rounded" type="email" name="email" id="email" required />
         <label class="text-white" for="name">Nombre</label>
-        <input class="rounded" type="text" name="name" id="name" />
+        <input class="rounded" type="text" name="name" id="name" required />
         <label class="text-white" for="subject">Asunto</label>
-        <input class="rounded" type="text" name="subject" id="subject" />
+        <input
+          class="rounded"
+          type="text"
+          name="subject"
+          id="subject"
+          required
+        />
       </div>
       <div class="grid md:grid-flow-row md:gap-4 md:w-full md:h-[80%] h-[60%]">
         <label class="text-white" for="message">Mensaje</label>
@@ -81,12 +87,68 @@ const { class: classNames } = Astro.props;
           id="message"
           cols="30"
           rows="10"
-          class="rounded w-full h-full"></textarea>
+          class="rounded w-full h-full"
+          maxlength="200"
+          required></textarea>
         <button
+          id="submitBtn"
           class="bg-blue hover:bg-white hover:text-black text-white transition-colors ease-linear duration-300 p-2 rounded"
           type="submit">Enviar</button
         >
       </div>
     </form>
   </div>
+  <script
+    type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+  ></script>
+
+  <script type="">
+    document.addEventListener("DOMContentLoaded", function () {
+      const submitBtn = this.getElementById("submitBtn");
+      const contactForm = this.getElementById("contactForm");
+      (function () {
+        fetch("https://api.ipify.org?format=json")
+          .then((response) => response.json())
+          .then((data) => {
+            const userIp = data.ip;
+            console.log(userIp);
+            emailjs.init({
+              publicKey: "1A5eTbSy-fT9U4cso",
+              limitRate: {
+                id: userIp, // Usa la IP del visitante como id
+                throttle: 60000 * 60,
+              },
+            });
+          });
+      })();
+      if (!submitBtn || !contactForm) return;
+      contactForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        submitBtn.setAttribute("disabled", true);
+        submitBtn.classList.toggle("cursor-not-allowed");
+        submitBtn.classList.toggle("bg-blue");
+        submitBtn.classList.toggle("bg-white");
+        submitBtn.classList.toggle("text-white");
+        submitBtn.classList.toggle("text-black");
+
+        emailjs
+          .sendForm("service_7y0u0js", "template_pn26jim", "#contactForm")
+          .then(
+            function (response) {
+              console.log("Email sent!", response.status, response.text);
+              submitBtn.removeAttribute("disabled");
+              submitBtn.classList.toggle("cursor-not-allowed");
+              submitBtn.classList.toggle("bg-blue");
+              submitBtn.classList.toggle("bg-white");
+              submitBtn.classList.toggle("text-white");
+              submitBtn.classList.toggle("text-black");
+            },
+            function (error) {
+              console.log("Email failed...", error);
+            }
+          );
+      });
+    });
+  </script>
 </footer>
