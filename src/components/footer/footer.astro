@@ -112,7 +112,6 @@ const { class: classNames } = Astro.props;
           .then((response) => response.json())
           .then((data) => {
             const userIp = data.ip;
-            console.log(userIp);
             emailjs.init({
               publicKey: "1A5eTbSy-fT9U4cso",
               limitRate: {
