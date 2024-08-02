@@ -1,0 +1,44 @@
+---
+const blogs = Astro.props.blogs as Blog;
+const { class: classNames } = Astro.props;
+interface Blog {
+  blogTitle: string;
+  content: string;
+  images: string[];
+}
+---
+
+<blog-card class:list={classNames}>
+  <img src={blogs.images[0]} alt="blog image" />
+  <h1>{blogs.blogTitle}</h1>
+  <p>{blogs.content}</p>
+</blog-card>
+<script>
+  class BlogCard extends HTMLElement {
+    private blogTitle: string;
+    private content: string;
+    private images: string[];
+
+    constructor(
+      blogTitle: string,
+      content: string = "",
+      images: string[] = []
+    ) {
+      super();
+      this.blogTitle = blogTitle;
+      this.content = content;
+      this.images = images;
+    }
+
+    updateContent(content: string) {
+      this.content = content;
+    }
+    updateImages(images: string[]) {
+      this.images = images;
+    }
+    updateTitle(blogTitle: string) {
+      this.blogTitle = blogTitle;
+    }
+  }
+  customElements.define("blog-card", BlogCard);
+</script>

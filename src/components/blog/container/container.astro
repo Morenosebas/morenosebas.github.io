@@ -1,0 +1,88 @@
+---
+import BlogCard from "./card/blogCard.astro";
+interface Blog {
+  blogTitle: string;
+  content: string;
+  images: string[];
+}
+const blogs = [
+  {
+    blogTitle: "Blog 1",
+    content: "This is the content of blog 1",
+    images: ["https://via.placeholder.com/1350"],
+  },
+  {
+    blogTitle: "Blog 2",
+    content: "This is the content of blog 2",
+    images: ["https://via.placeholder.com/150"],
+  },
+  {
+    blogTitle: "Blog 3",
+    content: "This is the content of blog 3",
+    images: ["https://via.placeholder.com/150"],
+  },
+  //añade hasta 10 blogs
+  {
+    blogTitle: "Blog 4",
+    content: "This is the content of blog 4",
+    images: ["https://via.placeholder.com/150"],
+  },
+  {
+    blogTitle: "Blog 5",
+    content: "This is the content of blog 5",
+    images: ["https://via.placeholder.com/150"],
+  },
+  {
+    blogTitle: "Blog 6",
+    content: "This is the content of blog 6",
+    images: ["https://via.placeholder.com/150"],
+  },
+  {
+    blogTitle: "Blog 7",
+    content: "This is the content of blog 7",
+    images: ["https://via.placeholder.com/150"],
+  },
+  {
+    blogTitle: "Blog 8",
+    content: "This is the content of blog 8",
+    images: ["https://via.placeholder.com/150"],
+  },
+  {
+    blogTitle: "Blog 9",
+    content: "This is the content of blog 9",
+    images: ["https://via.placeholder.com/150"],
+  },
+  {
+    blogTitle: "Blog 10",
+    content: "This is the content of blog 10",
+    images: ["https://via.placeholder.com/150"],
+  },
+];
+---
+
+<div id="containerBlog" class="grid w-[70%] bg-teal p-2 rounded text-white">
+  <section>
+    <div id="containerAllBlogs">
+      {
+        blogs.map((blog, index) => (
+          <BlogCard
+            class={
+              index === 0
+                ? "place-content-center place-items-center grid col-span-3 w-full bg-dark rounded  mb-3 p-2"
+                : " place-content-center place-items-center grid mb-3 bg-darkGray p-2 rounded"
+            }
+            blogs={blog}
+          />
+        ))
+      }
+    </div>
+  </section>
+  <style>
+    #containerAllBlogs {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 5px;
+      grid-template-rows: 3fr;
+    }
+  </style>
+</div>
