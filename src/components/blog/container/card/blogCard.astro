@@ -1,6 +1,8 @@
 ---
 const blogs = Astro.props.blogs as Blog;
-const { class: classNames } = Astro.props;
+const { class: classNames, index } = Astro.props;
+const imgClasses =
+  index === 0 ? "min-w-[550px] min-h-[550px]" : "min-w-[150px] min-h-[150px]";
 interface Blog {
   blogTitle: string;
   content: string;
@@ -9,7 +11,7 @@ interface Blog {
 ---
 
 <blog-card class:list={classNames}>
-  <img src={blogs.images[0]} alt="blog image" />
+  <img class:list={imgClasses} src={blogs.images[0]} alt="blog image" />
   <h1>{blogs.blogTitle}</h1>
   <p>{blogs.content}</p>
 </blog-card>
