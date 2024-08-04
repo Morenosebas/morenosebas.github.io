@@ -60,7 +60,7 @@ const blogs = [
 ];
 ---
 
-<div id="containerBlog" class="grid w-[70%] bg-teal p-2 rounded text-white">
+<div id="containerBlog" class="grid md:w-[70%] bg-teal md:p-2 w-full rounded text-white">
   <section>
     <div id="containerAllBlogs">
       {
@@ -68,7 +68,7 @@ const blogs = [
           <BlogCard
             class={
               index === 0
-                ? "place-content-center place-items-center grid col-span-3 w-full bg-dark rounded  mb-3 p-2"
+                ? "place-content-center place-items-center grid col-span-3 w-full bg-dark rounded  mb-3 md:p-2"
                 : " place-content-center place-items-center grid mb-3 bg-darkGray p-2 rounded"
             }
             index={index}

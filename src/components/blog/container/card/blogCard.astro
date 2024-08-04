@@ -2,7 +2,7 @@
 const blogs = Astro.props.blogs as Blog;
 const { class: classNames, index } = Astro.props;
 const imgClasses =
-  index === 0 ? "min-w-[550px] min-h-[550px]" : "min-w-[150px] min-h-[150px]";
+  index === 0 ? "md:min-w-[550px] min-w-[220px] min-h-[220px] md:min-h-[550px]" : " min-w-[80px] min-h-[80px] md:min-w-[150px]  md:min-h-[150px]";
 interface Blog {
   blogTitle: string;
   content: string;
