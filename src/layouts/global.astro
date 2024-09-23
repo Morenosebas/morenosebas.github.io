@@ -1,6 +1,7 @@
 ---
 import Footer from "@components/footer/footer.astro";
 import NavHeader from "@components/header/header.astro";
+import WppBtn from "@components/wpp_btn/wpp_btn.astro";
 ---
 
 <html lang="es">
@@ -19,10 +20,12 @@ import NavHeader from "@components/header/header.astro";
     </style>
   </head>
   <body class="bg-dark">
+    <WppBtn />
     <header>
       <NavHeader />
     </header>
     <slot />
+
     <Footer
       class="w-full grid bg-darkGray md:mt-5 md:grid-flow-col md:place-items-center md:p-3 md:text-start grid-flow-row"
     />

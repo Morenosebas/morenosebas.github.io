@@ -26,7 +26,7 @@ const classCards =
     <div
       class={"slider-" +
         id +
-        " md:rounded-xl bg-white aspect-video  flex box-border overflow-x-hidden snap-mandatory snap-x scroll-smooth md:w-[95%] w-full h-full md:border-2"}
+        " md:rounded-xl  bg-white aspect-video  flex box-border overflow-x-hidden snap-mandatory snap-x scroll-smooth  w-full h-full md:border-2"}
     >
       {
         slides.map((slide, index) => {
@@ -55,22 +55,22 @@ const classCards =
         })
       }
     </div>
-    <div
-      class="flex absolute bottom-[30px] left-[50%] translate-x-[-50%] z-10 gap-2"
-    >
-      {
-        slides.map((slide, index) => {
-          return (
-            <a
-              class:list={classCards}
-              aria-label={`Go to slide ${index + 1 + " " + id}`}
-              aria-current={index === 0 ? "true" : "false"}
-              href={"#slider-" + index + id}
-              id={"btnSlider-" + index + id}
-            />
-          );
-        })
-      }
+    <div class="flex place-content-center ">
+      <div class="flex sticky left-0 z-10 -translate-y-5 gap-2">
+        {
+          slides.map((slide, index) => {
+            return (
+              <a
+                class:list={classCards}
+                aria-label={`Go to slide ${index + 1 + " " + id}`}
+                aria-current={index === 0 ? "true" : "false"}
+                href={"#slider-" + index + id}
+                id={"btnSlider-" + index + id}
+              />
+            );
+          })
+        }
+      </div>
     </div>
   </div>
   <script>
